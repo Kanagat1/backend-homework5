@@ -2,6 +2,7 @@ import express from "express";
 import AuthorController from "../controllers/AuthorController.js";
 import BookController from "../controllers/BookController.js";
 import BorrowerController from "../controllers/BorrowerController.js";
+import { authBorrower } from "../middleware/auth.middleware.js";
 
 const router = express.Router();
 
@@ -18,7 +19,7 @@ router.patch("/books/:id", BookController.update);
 router.delete("/books/:id", BookController.delete);
 
 // Читатели
-router.post("/borrowers", BorrowerController.create);
+router.post("/borrowers", authBorrower,BorrowerController.create);
 router.post("/borrowers/borrow", BorrowerController.borrow);
 router.post("/borrowers/return", BorrowerController.return);
 
