@@ -3,6 +3,7 @@ import AuthorController from "../controllers/AuthorController.js";
 import BookController from "../controllers/BookController.js";
 import BorrowerController from "../controllers/BorrowerController.js";
 import { authBorrower } from "../middleware/auth.middleware.js";
+import { authLibrarian } from "../middleware/auth.middleware.js";
 
 const router = express.Router();
 
@@ -13,7 +14,7 @@ router.patch("/authors/:id", AuthorController.update);
 router.delete("/authors/:id", AuthorController.delete);
 
 // Книги
-router.post("/books", BookController.create);
+router.post("/books", authLibrarian,BookController.create);
 router.get("/books", BookController.getAll);
 router.patch("/books/:id", BookController.update);
 router.delete("/books/:id", BookController.delete);
