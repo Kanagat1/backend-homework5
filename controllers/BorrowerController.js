@@ -1,11 +1,12 @@
 import { Borrower } from "../models/Borrower.js";
 import { Book } from "../models/Book.js";
+import { Author } from "../models/Author.js";
 
 class BorrowerController {
   async create(req, res) {
     try {
-      const { name } = req.body;
-      const borrower = await new Borrower({ name }).save();
+      const { name, email, password } = req.body;
+      const borrower = await new Borrower({ name, email, password }).save();
       res.status(201).json(borrower);
     } catch (error) {
       res.status(500).json({ error: error.message });
@@ -40,7 +41,6 @@ class BorrowerController {
       const borrower = await Borrower.findById(borrowerId);
       const book = await Book.findById(bookId);
       
-
       if (!borrower || !book) {
         return res.status(404).json({ message: "Borrower or book not found" });
       }
@@ -53,9 +53,7 @@ class BorrowerController {
       await borrower.save();
       await book.save();
     
-    
-
-      res.json({ message: `${borrower.name} вернул книгу под названием "${book.title}" автора ${author.name}`});
+      res.json({ message: `${borrower.name} вернул книгу под названием "${book.title}"`});
     } catch (error) {
       res.status(500).json({ error: error.message });
     }

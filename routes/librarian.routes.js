@@ -1,14 +1,14 @@
 
 import express from  "express";
 import { registerValidator, loginValidator } from "../validators/auth.validator.js";
-import AuthController from "../controllers/Auth.controller.js";
+import LibrarianController from "../controllers/Librarian.Controller.js";
 
 const router = express.Router();
 
 // Регистрация нового библиотекаря
-router.post("/register", registerValidator, AuthController.register);
+router.post("/register", registerValidator, LibrarianController.register);
 
 // Вход библиотекаря
-router.post("/login", loginValidator, AuthController.login );
+router.post("/login", loginValidator, LibrarianController.login );
 
 export default router; 

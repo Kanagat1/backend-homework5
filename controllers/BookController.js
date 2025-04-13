@@ -4,11 +4,11 @@ import { Author } from "../models/Author.js";
 class BookController {
   async create(req, res) {
     try {
-      const { title, authorId } = req.body;
+      const { title, authorId, isAvailable } = req.body;
       const author = await Author.findById(authorId);
       if (!author) return res.status(404).json({ message: "Author not found" });
 
-      const book = await new Book({ title, author: authorId }).save();
+      const book = await new Book({ title, author: authorId, isAvailable }).save();
       await Author.findByIdAndUpdate(authorId, { $push: { books: book._id } });
       res.status(201).json(book);
     } catch (error) {
